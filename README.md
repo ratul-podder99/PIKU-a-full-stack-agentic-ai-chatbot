@@ -61,13 +61,13 @@ Optional for deployment:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/entbappy/BappyGPT.git
+git clone https://github.com/ratul-podder99/PIKU-a-full-stack-agentic-ai-chatbot.git
 ```
 
 ### 2. Navigate to the project directory
 
 ```bash
-cd BappyGPT
+cd PIKU
 ```
 
 ### 3. Create a virtual environment
@@ -75,13 +75,13 @@ cd BappyGPT
 Using conda:
 
 ```bash
-conda create -n bappygpt python=3.11 -y
+conda create -n PIKU python=3.11 -y
 ```
 
 ### 4. Activate the virtual environment
 
 ```bash
-conda activate bappygpt
+conda activate PIKU
 ```
 
 ### 5. Install dependencies
@@ -135,7 +135,7 @@ http://127.0.0.1:8080
 ## Project Structure
 
 ```text
-BappyGPT/
+PIKU/
 │
 ├── app.py                  # FastAPI app and streaming chat endpoints
 ├── agent.py                # LangGraph agent setup and tool orchestration
@@ -143,9 +143,6 @@ BappyGPT/
 ├── rag.py                  # Document ingestion and RAG logic
 ├── tools.py                # Agent tools such as web search, memory, and RAG
 ├── requirements.txt        # Python dependencies
-├── Dockerfile              # Docker image configuration
-├── .dockerignore           # Docker ignore rules
-│
 ├── templates/
 │   └── index.html          # Frontend UI
 │
@@ -155,25 +152,6 @@ BappyGPT/
 ```
 
 ---
-
-## Docker Deployment
-
-### 1. Build the Docker image
-
-```bash
-docker build -t bappygpt .
-```
-
-### 2. Run the Docker container
-
-```bash
-docker run -d \
-  --name bappygpt \
-  --restart always \
-  -p 8080:8080 \
-  --env-file .env \
-  bappygpt
-```
 
 The app will be available at:
 
