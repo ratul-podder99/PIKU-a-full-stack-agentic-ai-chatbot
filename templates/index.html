@@ -546,10 +546,33 @@
     const noticeText = document.getElementById("noticeText");
     const micBtn = document.getElementById("micBtn");
 
+    function generateUUID() {
+        // crypto.randomUUID() only works in secure contexts (https or localhost).
+        // Fall back to crypto.getRandomValues, then to Math.random, so this
+        // never throws and blocks the rest of the script from running.
+        if (window.crypto && typeof window.crypto.randomUUID === "function") {
+            return window.crypto.randomUUID();
+        }
+
+        if (window.crypto && typeof window.crypto.getRandomValues === "function") {
+            return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+                const r = window.crypto.getRandomValues(new Uint8Array(1))[0] % 16;
+                const v = c === "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            });
+        }
+
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+            const r = (Math.random() * 16) | 0;
+            const v = c === "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        });
+    }
+
     let threadId = localStorage.getItem("thread_id");
 
     if (!threadId) {
-        threadId = crypto.randomUUID();
+        threadId = generateUUID();
         localStorage.setItem("thread_id", threadId);
     }
 
@@ -1145,7 +1168,7 @@
     }
 
     async function newChat() {
-        threadId = crypto.randomUUID();
+        threadId = generateUUID();
         localStorage.setItem("thread_id", threadId);
 
         if (isDictating) {
